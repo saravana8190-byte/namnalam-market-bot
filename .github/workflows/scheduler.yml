@@ -1,0 +1,27 @@
+name: Namnalam Daily Market Bot
+
+on:
+  schedule:
+    # Runs every day at 02:30 UTC (= 08:00 AM IST)
+    - cron: '30 2 * * *'
+  workflow_dispatch: # Allows manual trigger anytime
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Run market intelligence script
+        run: |
+          python bot.py
